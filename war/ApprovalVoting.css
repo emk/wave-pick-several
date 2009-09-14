@@ -1,0 +1,10 @@
+/** Add css rules here for your application. */
+
+.choicesHeader {
+  background-color: #2062B8;
+  color: white;
+}
+
+.winningChoice {
+  font-weight: bold;
+}
