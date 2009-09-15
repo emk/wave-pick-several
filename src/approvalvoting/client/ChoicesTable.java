@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
@@ -34,9 +33,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 		hbox.add(inputBox);
 		hbox.add(addButton);
 		setWidget(1, 0, hbox);
-		
-		RootPanel.get("choices").add(this);
-		
+
 		addEventHandlers();
 		model.addListener(this);
 	}
