@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.gadgets.client.DynamicHeightFeature;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -21,6 +22,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 	
 	private ChoicesModel model = new ChoicesModel();
 	private ArrayList<String> knownChoices = new ArrayList<String>();
+	private DynamicHeightFeature dynamicHeightFeature;
 
 	ChoicesTable(ChoicesModel model) {
 		super();
@@ -62,7 +64,9 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 
 	public void notifyChoicesChanged(ArrayList<Choice> choicesModel) {
 		updateChoicesTableHeader(choicesModel);
-		updateChoicesTableBody(choicesModel);	
+		updateChoicesTableBody(choicesModel);
+		if (dynamicHeightFeature != null)
+			dynamicHeightFeature.adjustHeight();
 	}
 
 	private void updateChoicesTableHeader(ArrayList<Choice> choicesModel) {
@@ -113,5 +117,10 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 			checkBox.addStyleName("winningChoice");
 		else
 			checkBox.removeStyleName("winningChoice");
+	}
+
+	public void setDynamicHeightFeature(DynamicHeightFeature feature) {
+		dynamicHeightFeature = feature;
+		dynamicHeightFeature.adjustHeight();
 	}
 }

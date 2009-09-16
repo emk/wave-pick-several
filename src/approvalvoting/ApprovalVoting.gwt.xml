@@ -3,6 +3,8 @@
 <module rename-to='approvalvoting'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
+  <!-- Inherit the gadgets API support.                           -->
+  <inherits name='com.google.gwt.gadgets.Gadgets'/>
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
