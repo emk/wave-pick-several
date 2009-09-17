@@ -1,6 +1,6 @@
-package approvalvoting;
+package net.randomhacks.wave.voting.approval;
 
-import approvalvoting.client.ChoiceTest;
+import net.randomhacks.wave.voting.approval.client.ChoiceTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 

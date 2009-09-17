@@ -1,4 +1,4 @@
-package approvalvoting.client;
+package net.randomhacks.wave.voting.approval.client;
 
 import java.util.ArrayList;
 import java.util.TreeMap;

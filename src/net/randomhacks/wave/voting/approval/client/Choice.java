@@ -1,4 +1,4 @@
-package approvalvoting.client;
+package net.randomhacks.wave.voting.approval.client;
 
 public class Choice {
 	String name;

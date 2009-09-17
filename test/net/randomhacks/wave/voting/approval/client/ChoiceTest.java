@@ -1,5 +1,6 @@
-package approvalvoting.client;
+package net.randomhacks.wave.voting.approval.client;
 
+import net.randomhacks.wave.voting.approval.client.Choice;
 import junit.framework.TestCase;
 
 public class ChoiceTest extends TestCase {

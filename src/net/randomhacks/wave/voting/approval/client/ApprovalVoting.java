@@ -1,4 +1,4 @@
-package approvalvoting.client;
+package net.randomhacks.wave.voting.approval.client;
 
 import com.google.gwt.gadgets.client.DynamicHeightFeature;
 import com.google.gwt.gadgets.client.Gadget;

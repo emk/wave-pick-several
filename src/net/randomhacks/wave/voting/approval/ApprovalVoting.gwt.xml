@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.7.0/distro-source/core/src/gwt-module.dtd">
-<module rename-to='approvalvoting'>
+<module rename-to='net.randomhacks.wave.voting.approval'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <!-- Inherit the gadgets API support.                           -->
@@ -19,5 +19,5 @@
   <stylesheet src="style.css"/>
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='approvalvoting.client.ApprovalVoting'/>
+  <entry-point class='net.randomhacks.wave.voting.approval.client.ApprovalVoting'/>
 </module>

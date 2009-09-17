@@ -1,6 +1,6 @@
 /tomcat
 /www-test
-/war/approvalvoting
+/war/net.randomhacks.wave.voting.approval
 *~
 /war/WEB-INF/classes
 /war/WEB-INF/lib
