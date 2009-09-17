@@ -15,6 +15,9 @@
 
   <!-- Other module inherits                                      -->
 
+  <!-- Specify our stylesheet.                                    -->
+  <stylesheet src="style.css"/>
+
   <!-- Specify the app entry point class.                         -->
   <entry-point class='approvalvoting.client.ApprovalVoting'/>
 </module>
