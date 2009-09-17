@@ -1,3 +1,0 @@
-#!/bin/sh
-APPDIR=`dirname $0`;
-java -XstartOnFirstThread -Dgwt.args="-out www-test" -Xmx256M -cp "$APPDIR/src:$APPDIR/test:$APPDIR/war/WEB-INF/classes:/Applications/Development/eclipse/plugins/org.junit_3.8.2.v20090203-1005/junit.jar:/Users/emk/junk/gwt-mac-1.7.0/gwt-user.jar:/Users/emk/junk/gwt-mac-1.7.0/gwt-dev-mac.jar" junit.textui.TestRunner approvalvoting.ApprovalVotingTestSuite "$@";
