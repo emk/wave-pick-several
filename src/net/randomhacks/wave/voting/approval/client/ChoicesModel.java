@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import net.randomhacks.wave.gadgets.client.WaveFeature;
-import net.randomhacks.wave.gadgets.client.WaveGadgetState;
+import net.randomhacks.wave.gadgets.client.State;
 import net.randomhacks.wave.gadgets.client.WaveFeature.StateListener;
 
 class ChoicesModel implements StateListener {
@@ -13,9 +13,9 @@ class ChoicesModel implements StateListener {
 	}
 	
 	private ArrayList<Listener> listeners = new ArrayList<Listener>();
-	private WaveGadgetState state;
+	private State state;
 	
-	public ChoicesModel(WaveGadgetState state) {
+	public ChoicesModel(State state) {
 		this.state = state;
 	}
 
@@ -40,7 +40,7 @@ class ChoicesModel implements StateListener {
 	}
 
 	/** Called when the gadget's underlying state changes. */
-	public void onStateChange(WaveGadgetState state) {
+	public void onStateChange(State state) {
 		String viewerId = new WaveFeature().getViewer().getId();
 			
 		ArrayList<String> stateKeys = state.getKeys(); 

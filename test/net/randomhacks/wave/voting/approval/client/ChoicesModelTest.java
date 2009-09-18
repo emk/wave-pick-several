@@ -2,8 +2,8 @@ package net.randomhacks.wave.voting.approval.client;
 
 import java.util.ArrayList;
 
-import net.randomhacks.wave.gadgets.client.FakeWaveGadgetState;
-import net.randomhacks.wave.gadgets.client.WaveGadgetState;
+import net.randomhacks.wave.gadgets.client.StateEmulator;
+import net.randomhacks.wave.gadgets.client.State;
 import junit.framework.TestCase;
 
 // Note that any test involving 'model' is a low-level data storage test, and
@@ -12,12 +12,12 @@ import junit.framework.TestCase;
 // already in use.
 public class ChoicesModelTest extends TestCase {
 
-	private WaveGadgetState state;
+	private State state;
 	private ChoicesModel model;
 
 	protected void setUp() throws Exception {
-		state = new FakeWaveGadgetState();
-		model = new ChoicesModel("user:@example.com", state);
+		state = new StateEmulator();
+		model = new ChoicesModel(state);
 	}
 	
 	public void testOnlyColonAndPercentShouldBeEscapedInStateKeys() {

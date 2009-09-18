@@ -8,7 +8,7 @@ import com.google.gwt.gadgets.client.GadgetFeature;
 public class WaveFeature implements GadgetFeature {
 	/** Notified when a change occurs in the gadget's state. */
 	public interface StateListener {
-		void onStateChange(WaveGadgetState state);
+		void onStateChange(State state);
 	}
 	
 	private boolean callbacksAreInitialized = false;
@@ -24,8 +24,8 @@ public class WaveFeature implements GadgetFeature {
 	}-*/;
 	
 	/** The state object for this gadget. */
-	public WaveGadgetState getState() {
-		return new WaveGadgetStateImpl();
+	public State getState() {
+		return new StateImpl();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class WaveFeature implements GadgetFeature {
 
 	@SuppressWarnings("unused")
 	private void notifyStateListeners() {
-		WaveGadgetState state = getState();
+		State state = getState();
 		for (StateListener listener : stateListeners)
 			listener.onStateChange(state);
 	}
