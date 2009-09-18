@@ -20,7 +20,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 	private TextBox inputBox = new TextBox();
 	private Button addButton = new Button("Add");
 	
-	private ChoicesModel model = new ChoicesModel();
+	private ChoicesModel model;
 	private ArrayList<String> knownChoices = new ArrayList<String>();
 	private DynamicHeightFeature dynamicHeightFeature;
 
