@@ -3,9 +3,9 @@ package net.randomhacks.wave.voting.approval.client;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import net.randomhacks.wave.gadgets.client.WaveFeature;
 import net.randomhacks.wave.gadgets.client.State;
-import net.randomhacks.wave.gadgets.client.WaveFeature.StateListener;
+import net.randomhacks.wave.gadgets.client.Wave;
+import net.randomhacks.wave.gadgets.client.Wave.StateListener;
 
 class ChoicesModel implements StateListener {
 	interface Listener {
@@ -13,22 +13,25 @@ class ChoicesModel implements StateListener {
 	}
 	
 	private ArrayList<Listener> listeners = new ArrayList<Listener>();
-	private State state;
+	private Wave wave;
 	
-	public ChoicesModel(State state) {
-		this.state = state;
+	public ChoicesModel(Wave wave) {
+		this.wave = wave;
+		this.wave.addStateListener(this);
 	}
 
 	/** Add a new choice that users can vote for. */
 	public void addChoice(String choiceName) {
 		String key = choiceName.toLowerCase();
+		State state = wave.getState();
 		state.submitDelta("choiceName:" + state.escape(key), choiceName);
 	}
 
 	/** Specify whether the current user has voted for this choice. */
 	public void setChosen(String choiceName, boolean isChosen) {
-		String viewerId = new WaveFeature().getViewer().getId();
+		String viewerId = wave.getViewer().getId();
 		String key = choiceName.toLowerCase();
+		State state = wave.getState();
 		state.submitDelta(
 				"chosen:" + state.escape(key) + ":" + state.escape(viewerId),
 				isChosen ? "" : null);
@@ -40,8 +43,9 @@ class ChoicesModel implements StateListener {
 	}
 
 	/** Called when the gadget's underlying state changes. */
-	public void onStateChange(State state) {
-		String viewerId = new WaveFeature().getViewer().getId();
+	public void onStateChange() {
+		State state = wave.getState();
+		String viewerId = wave.getViewer().getId();
 			
 		ArrayList<String> stateKeys = state.getKeys(); 
 		TreeMap<String,Choice> choiceMap = new TreeMap<String, Choice>();

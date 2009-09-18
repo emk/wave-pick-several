@@ -3,7 +3,7 @@ package net.randomhacks.wave.gadgets.client;
 import java.util.ArrayList;
 import java.util.Map;
 
-public interface State {
+public abstract class State {
 
 	/** Get a list of all keys stored in this gadget's state. */
 	public abstract ArrayList<String> getKeys();

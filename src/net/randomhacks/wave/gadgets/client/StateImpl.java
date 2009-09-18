@@ -7,7 +7,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
 /** An interface for reading and writing the stored state of a gadget. */
-class StateImpl implements State {
+class StateImpl extends State {
 	
 	// An internal wrapper around $wnd.wave.getState().
 	private static final class JsState extends JavaScriptObject {

@@ -1,6 +1,7 @@
 package net.randomhacks.wave.voting.approval.client;
 
 import net.randomhacks.wave.gadgets.client.NeedsWave;
+import net.randomhacks.wave.gadgets.client.Wave;
 import net.randomhacks.wave.gadgets.client.WaveFeature;
 
 import com.google.gwt.gadgets.client.DynamicHeightFeature;
@@ -17,7 +18,7 @@ public class ApprovalVoting extends Gadget<UserPreferences>
 	implements NeedsDynamicHeight, NeedsWave
 {
 	DynamicHeightFeature dynamicHeightFeature;
-	WaveFeature waveFeature;
+	Wave wave;
 	ChoicesTable table;
 	
 	public void initializeFeature(DynamicHeightFeature feature) {
@@ -25,14 +26,13 @@ public class ApprovalVoting extends Gadget<UserPreferences>
 	}
 
 	public void initializeFeature(WaveFeature feature) {
-		waveFeature = feature;
+		wave = feature.getWave();
 	}
 
 	@Override
 	protected void init(UserPreferences preferences) {
 		// Initialize our model.
-		ChoicesModel model = new ChoicesModel(waveFeature.getState());
-		waveFeature.addStateListener(model);
+		ChoicesModel model = new ChoicesModel(wave);
 		
 		// Initialize our GUI.
 		table = new ChoicesTable(model);

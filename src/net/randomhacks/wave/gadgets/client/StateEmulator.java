@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** This class is only used for testing gadget implementations. */
-public class StateEmulator implements State {
+public class StateEmulator extends State {
 	HashMap<String,String> state = new HashMap<String, String>();
 
 	public String get(String key) {

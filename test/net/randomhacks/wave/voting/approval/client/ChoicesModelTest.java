@@ -2,9 +2,10 @@ package net.randomhacks.wave.voting.approval.client;
 
 import java.util.ArrayList;
 
-import net.randomhacks.wave.gadgets.client.StateEmulator;
-import net.randomhacks.wave.gadgets.client.State;
 import junit.framework.TestCase;
+import net.randomhacks.wave.gadgets.client.State;
+import net.randomhacks.wave.gadgets.client.Wave;
+import net.randomhacks.wave.gadgets.client.WaveEmulator;
 
 // Note that any test involving 'model' is a low-level data storage test, and
 // rely on it always returning the same answer in the future.  Changing the
@@ -12,12 +13,14 @@ import junit.framework.TestCase;
 // already in use.
 public class ChoicesModelTest extends TestCase {
 
+	private Wave wave;
 	private State state;
 	private ChoicesModel model;
 
 	protected void setUp() throws Exception {
-		state = new StateEmulator();
-		model = new ChoicesModel(state);
+		wave = new WaveEmulator();
+		state = wave.getState();
+		model = new ChoicesModel(wave);
 	}
 	
 	public void testOnlyColonAndPercentShouldBeEscapedInStateKeys() {
@@ -33,19 +36,19 @@ public class ChoicesModelTest extends TestCase {
 	public void testVotingShouldAddAStateKey() {
 		model.addChoice("Foo:Bar");
 		model.setChosen("Foo:Bar", true);
-		assertEquals("", state.get("chosen:foo%3Abar:user%3A@example.com")); 
+		assertEquals("", state.get("chosen:foo%3Abar:viewer@example.com")); 
 	}
 	
 	public void testUnvotingShouldClearAStateKey() {
 		model.addChoice("Foo:Bar");
-		state.submitDelta("chosen:foo%3Abar:user%3A@example.com", "");
+		state.submitDelta("chosen:foo%3Abar:viewer@example.com", "");
 		model.setChosen("Foo:Bar", false);
-		assertNull(state.get("chosen:foo%3Abar")); 
+		assertNull(state.get("chosen:foo%3Abar:viewer@example.com")); 
 	}
 	
 	public void testChoicesShouldBeRecreatedFromState() {
 		state.submitDelta("choiceName:pizza", "Pizza");
-		state.submitDelta("chosen:pizza:user%3A@example.com", "");
+		state.submitDelta("chosen:pizza:viewer@example.com", "");
 		state.submitDelta("chosen:pizza:sally@example.com", "");
 		
 		state.submitDelta("choiceName:sandwiches", "Sandwiches");
@@ -60,7 +63,7 @@ public class ChoicesModelTest extends TestCase {
 		
 		TestListener listener = new TestListener();
 		model.addListener(listener);
-		model.onStateChange(state);
+		model.onStateChange();
 		assertTrue(listener.wasNotified);
 	}
 
@@ -74,7 +77,6 @@ public class ChoicesModelTest extends TestCase {
 			assertChoiceEquals("Pizza",      2, true,  false, choices.get(1));
 			assertChoiceEquals("Sandwiches", 3, false, true,  choices.get(2));
 		}
-
 	};
 
 	private static void assertChoiceEquals(String name, int votes, boolean wasChosenByMe, boolean isWinner, Choice choice) {
