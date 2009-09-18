@@ -45,25 +45,24 @@ class ChoicesModel implements StateListener {
 	/** Called when the gadget's underlying state changes. */
 	public void onStateChange() {
 		ArrayList<String> stateKeys = wave.getState().getKeys(); 
-		HashMap<String,Choice> choiceMap = new HashMap<String, Choice>();
 
-		buildChoiceObjects(stateKeys, choiceMap);		
+		HashMap<String,Choice> choiceMap = buildChoiceMap(stateKeys);		
 		countVotesAndMarkMyOwn(stateKeys, choiceMap);
-
 		ArrayList<Choice> choices = convertChoiceMapToSortedList(choiceMap);
-
 		calculateWinners(choices);
+		
 		notifyListeners(choices);
 	}
 
-	private void buildChoiceObjects(ArrayList<String> stateKeys,
-			HashMap<String, Choice> choiceMap) {
+	private HashMap<String,Choice> buildChoiceMap(ArrayList<String> stateKeys) {
+		HashMap<String,Choice> choiceMap = new HashMap<String, Choice>();
 		State state = wave.getState();
 		for (String stateKey : stateKeys) {
 			String components[] = stateKey.split(":");
 			if (components[0].equals("choiceName"))
 				choiceMap.put(components[1], new Choice(state.get(stateKey)));
 		}
+		return choiceMap;
 	}
 
 	private void countVotesAndMarkMyOwn(ArrayList<String> stateKeys,
