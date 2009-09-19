@@ -70,12 +70,14 @@ public class ChoicesModelTest extends TestCase {
 	class TestListener implements ChoicesModel.Listener {
 		boolean wasNotified = false;
 		
-		public void notifyChoicesChanged(ArrayList<Choice> choices) {
+		public void notifyChoicesChanged(ArrayList<Choice> choices,
+				boolean isWritable) {
 			wasNotified = true;
 			assertEquals(3, choices.size());
 			assertChoiceEquals("Bagels",     0, false, false, choices.get(0));
 			assertChoiceEquals("Pizza",      2, true,  false, choices.get(1));
 			assertChoiceEquals("Sandwiches", 3, false, true,  choices.get(2));
+			assertFalse(isWritable);
 		}
 	};
 

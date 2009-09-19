@@ -62,9 +62,11 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 		}
 	}
 
-	public void notifyChoicesChanged(ArrayList<Choice> choicesModel) {
+	public void notifyChoicesChanged(ArrayList<Choice> choicesModel,
+			boolean isWritable) {
 		updateChoicesTableHeader(choicesModel);
-		updateChoicesTableBody(choicesModel);
+		updateChoicesTableBody(choicesModel, isWritable);
+		updateChoicesTableFooter(isWritable);
 		if (dynamicHeightFeature != null)
 			dynamicHeightFeature.adjustHeight();
 	}
@@ -80,7 +82,8 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 		setText(0, 0, headerText);
 	}
 
-	private void updateChoicesTableBody(ArrayList<Choice> choicesModel) {
+	private void updateChoicesTableBody(ArrayList<Choice> choicesModel,
+			boolean isWritable) {
 		int i = 0;
 		for (Choice choice : choicesModel) {
 			final String name = choice.name;
@@ -90,7 +93,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 				knownChoices.add(i, name);
 				insertChoiceRow(row, name);
 			}
-			updateChoiceRow(row, choice);
+			updateChoiceRow(row, choice, isWritable);
 			++i;
 		}
 	}
@@ -106,7 +109,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 		});
 	}
 
-	private void updateChoiceRow(int row, Choice choice) {
+	private void updateChoiceRow(int row, Choice choice, boolean isWritable) {
 		CheckBox checkBox = (CheckBox) getWidget(row, 0);
 		checkBox.setValue(choice.wasChosenByMe);
 		String label = choice.name;
@@ -117,6 +120,12 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 			checkBox.addStyleName("winningChoice");
 		else
 			checkBox.removeStyleName("winningChoice");
+		checkBox.setEnabled(isWritable);
+	}
+
+	private void updateChoicesTableFooter(boolean isWritable) {
+		inputBox.setEnabled(isWritable);
+		addButton.setEnabled(isWritable);
 	}
 
 	public void setDynamicHeightFeature(DynamicHeightFeature feature) {

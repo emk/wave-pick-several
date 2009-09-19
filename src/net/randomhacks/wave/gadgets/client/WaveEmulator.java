@@ -18,4 +18,9 @@ public class WaveEmulator extends Wave {
 		return new Participant("viewer@example.com", "Wave Viewer",
 				"http://example.com/viewer.jpg");
 	}
+
+	@Override
+	public boolean isPlayback() {
+		return true;
+	}
 }

@@ -11,7 +11,8 @@ import net.randomhacks.wave.gadgets.client.Wave.StateListener;
 
 class ChoicesModel implements StateListener {
 	interface Listener {
-		void notifyChoicesChanged(ArrayList<Choice> choicesModel);
+		void notifyChoicesChanged(ArrayList<Choice> choicesModel,
+				boolean isWritable);
 	}
 	
 	private Wave wave;
@@ -108,6 +109,6 @@ class ChoicesModel implements StateListener {
 
 	private void notifyListeners(ArrayList<Choice> choices) {
 		for (Listener listener : listeners)
-			listener.notifyChoicesChanged(choices);
+			listener.notifyChoicesChanged(choices, !wave.isPlayback());
 	}
 }

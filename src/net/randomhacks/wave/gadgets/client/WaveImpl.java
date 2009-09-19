@@ -48,4 +48,8 @@ class WaveImpl extends Wave {
 		for (StateListener listener : stateListeners)
 			listener.onStateChange();
 	}
+
+	public native boolean isPlayback() /*-{
+		return wave.isPlayback();
+	}-*/;
 }

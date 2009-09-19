@@ -19,4 +19,7 @@ public abstract class Wave {
 	 * Add a new listener which will be called whenever the state changes.
 	 */
 	public abstract void addStateListener(StateListener listener);
+
+	/** Is this a playback of a previously created wave? */
+	public abstract boolean isPlayback();
 }
