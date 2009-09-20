@@ -60,8 +60,11 @@ class ChoicesModel implements StateListener {
 		State state = wave.getState();
 		for (String stateKey : stateKeys) {
 			String components[] = stateKey.split(":");
-			if (components[0].equals("choiceName"))
-				choiceMap.put(components[1], new Choice(state.get(stateKey)));
+			if (components[0].equals("choiceName")) {
+				String choiceKey = components[1];
+				choiceMap.put(choiceKey,
+						new Choice(choiceKey, state.get(stateKey)));
+			}
 		}
 		return choiceMap;
 	}

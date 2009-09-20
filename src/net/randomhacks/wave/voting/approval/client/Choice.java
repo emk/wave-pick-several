@@ -1,12 +1,14 @@
 package net.randomhacks.wave.voting.approval.client;
 
 public class Choice {
+	String key;
 	String name;
 	int votes;
 	boolean wasChosenByMe;
 	boolean isWinner;
 	
-	public Choice(String name) {
+	public Choice(String key, String name) {
+		this.key = key;
 		this.name = name;
 		this.votes = 0;
 		this.wasChosenByMe = false;
@@ -14,7 +16,7 @@ public class Choice {
 	}
 	
 	public String toString() {
-		return "[" + (wasChosenByMe ? "X" : "_") + "] " + name +
+		return key + ": [" + (wasChosenByMe ? "X" : "_") + "] " + name +
 			"(" + Integer.toString(votes) + ")" + (isWinner ? "*" : ""); 
 	}
 }

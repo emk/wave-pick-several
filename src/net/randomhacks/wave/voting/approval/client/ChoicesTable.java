@@ -89,15 +89,36 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 		Log.debug("Model: " + choicesModel.toString());
 		int i = 0;
 		for (Choice choice : choicesModel) {
-			final String name = choice.name;
 			int row = i + 1;
-			if (i >= knownChoices.size()
-					|| name.compareToIgnoreCase(knownChoices.get(i)) != 0) {
-				knownChoices.add(i, name);
-				insertChoiceRow(row, name);
+			
+			// If 'choice.key' is alphabetically greater than the current
+			// row, then we need to remove it. Normally, this can only
+			// happen when rewinding playback in our gadget.
+			while (i < knownChoices.size() &&
+					choice.key.compareTo(knownChoices.get(i)) > 0) {
+				// We have row in the table that has since been deleted.
+				// This can only happen when rewinding playback.
+				Log.debug("Removing row: " + knownChoices.get(i));
+				knownChoices.remove(i);
+				removeRow(row);
 			}
+
+			if (i >= knownChoices.size()
+					|| choice.key.compareTo(knownChoices.get(i)) < 0) {
+				Log.debug("Inserting row: " + choice.key);
+				knownChoices.add(i, choice.key);
+				insertChoiceRow(row, choice.name);
+			}
+			
+			Log.debug("Updating row: " + choice.key);
 			updateChoiceRow(row, choice, isWritable);
 			++i;
+		}
+		while (i < knownChoices.size()) {
+			int row = i + 1;
+			Log.debug("Removing trailing row: " + knownChoices.get(i));
+			knownChoices.remove(i);
+			removeRow(row);
 		}
 		Log.debug("Known after: " + knownChoices.toString());
 	}
