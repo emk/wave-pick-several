@@ -12,4 +12,9 @@ public class Choice {
 		this.wasChosenByMe = false;
 		this.isWinner = false;
 	}
+	
+	public String toString() {
+		return "[" + (wasChosenByMe ? "X" : "_") + "] " + name +
+			"(" + Integer.toString(votes) + ")" + (isWinner ? "*" : ""); 
+	}
 }

@@ -2,6 +2,7 @@ package net.randomhacks.wave.voting.approval.client;
 
 import java.util.ArrayList;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -84,6 +85,8 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 
 	private void updateChoicesTableBody(ArrayList<Choice> choicesModel,
 			boolean isWritable) {
+		Log.debug("Known before: " + knownChoices.toString());
+		Log.debug("Model: " + choicesModel.toString());
 		int i = 0;
 		for (Choice choice : choicesModel) {
 			final String name = choice.name;
@@ -96,6 +99,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 			updateChoiceRow(row, choice, isWritable);
 			++i;
 		}
+		Log.debug("Known after: " + knownChoices.toString());
 	}
 
 	private void insertChoiceRow(int row, final String name) {

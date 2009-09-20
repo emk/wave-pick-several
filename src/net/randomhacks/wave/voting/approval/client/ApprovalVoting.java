@@ -4,6 +4,7 @@ import net.randomhacks.wave.gadgets.client.NeedsWave;
 import net.randomhacks.wave.gadgets.client.Wave;
 import net.randomhacks.wave.gadgets.client.WaveFeature;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.gadgets.client.DynamicHeightFeature;
 import com.google.gwt.gadgets.client.Gadget;
 import com.google.gwt.gadgets.client.NeedsDynamicHeight;
@@ -31,6 +32,8 @@ public class ApprovalVoting extends Gadget<UserPreferences>
 
 	@Override
 	protected void init(UserPreferences preferences) {
+		Log.setUncaughtExceptionHandler();
+		
 		// Initialize our model.
 		ChoicesModel model = new ChoicesModel(wave);
 		
