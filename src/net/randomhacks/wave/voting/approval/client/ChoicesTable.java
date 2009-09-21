@@ -83,59 +83,68 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 		setText(0, 0, headerText);
 	}
 
+	private int rowForChoiceIndex(int i) {
+		return i + 1;
+	}
+
 	private void updateChoicesTableBody(ArrayList<Choice> choicesModel,
 			boolean isWritable) {
+		// TODO - Move this code out into a presenter layer where we
+		// can actually test and debug it properly.
 		Log.debug("Known before: " + knownChoices.toString());
 		Log.debug("Model: " + choicesModel.toString());
 		int i = 0;
 		for (Choice choice : choicesModel) {
-			int row = i + 1;
-			
-			// If 'choice.key' is alphabetically greater than the current
-			// row, then we need to remove it. Normally, this can only
-			// happen when rewinding playback in our gadget.
+			// While 'choice.key' is alphabetically greater than the current
+			// key, then we need to remove the current row. Normally, this can
+			// only happen when rewinding a wave in playback mode.
 			while (i < knownChoices.size() &&
-					choice.key.compareTo(knownChoices.get(i)) > 0) {
-				// We have row in the table that has since been deleted.
-				// This can only happen when rewinding playback.
-				Log.debug("Removing row: " + knownChoices.get(i));
-				knownChoices.remove(i);
-				removeRow(row);
-			}
+					choice.key.compareTo(knownChoices.get(i)) > 0)
+				removeChoiceRow(i);
 
+			// If 'choice.key' is alphabetically less than the current
+			// key, then we need to insert a new row.
 			if (i >= knownChoices.size()
-					|| choice.key.compareTo(knownChoices.get(i)) < 0) {
-				Log.debug("Inserting row: " + choice.key);
-				knownChoices.add(i, choice.key);
-				insertChoiceRow(row, choice.name);
-			}
-			
-			Log.debug("Updating row: " + choice.key);
-			updateChoiceRow(row, choice, isWritable);
+					|| choice.key.compareTo(knownChoices.get(i)) < 0)
+				insertChoiceRow(i, choice);
+
+			// Make sure the current row matches the model.
+			updateChoiceRow(rowForChoiceIndex(i), choice, isWritable);
 			++i;
 		}
+		
+		// If we have any trailing rows left over after we've taken care
+		// of all the choices in our model, we'll need to remove them.
 		while (i < knownChoices.size()) {
-			int row = i + 1;
-			Log.debug("Removing trailing row: " + knownChoices.get(i));
-			knownChoices.remove(i);
-			removeRow(row);
+			Log.debug("Trailing choice: " + knownChoices.get(i));
+			removeChoiceRow(i);
 		}
 		Log.debug("Known after: " + knownChoices.toString());
 	}
 
-	private void insertChoiceRow(int row, final String name) {
+	private void removeChoiceRow(int i) {
+		Log.debug("Removing row: " + knownChoices.get(i));
+		knownChoices.remove(i);
+		removeRow(rowForChoiceIndex(i));
+	}
+
+	private void insertChoiceRow(int i, final Choice choice) {
+		Log.debug("Inserting row: " + choice.key);
+		knownChoices.add(i, choice.key);
+		int row = rowForChoiceIndex(i);
 		insertRow(row);
-		final CheckBox checkBox = new CheckBox(name);
+		final CheckBox checkBox = new CheckBox(choice.name);
 		setWidget(row, 0, checkBox);
 		checkBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				model.setChosen(name, event.getValue());
+				model.setChosen(choice.name, event.getValue());
 			}
 		});
 	}
 
-	private void updateChoiceRow(int row, Choice choice, boolean isWritable) {
-		CheckBox checkBox = (CheckBox) getWidget(row, 0);
+	private void updateChoiceRow(int i, Choice choice, boolean isWritable) {
+		Log.debug("Updating row: " + choice.key);
+		CheckBox checkBox = (CheckBox) getWidget(rowForChoiceIndex(i), 0);
 		checkBox.setValue(choice.wasChosenByMe);
 		String label = choice.name;
 		if (choice.votes > 0)
