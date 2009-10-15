@@ -109,7 +109,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 				insertChoiceRow(i, choice);
 
 			// Make sure the current row matches the model.
-			updateChoiceRow(rowForChoiceIndex(i), choice, isWritable);
+			updateChoiceRow(i, choice, isWritable);
 			++i;
 		}
 		
@@ -123,13 +123,13 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 	}
 
 	private void removeChoiceRow(int i) {
-		Log.debug("Removing row: " + knownChoices.get(i));
+		Log.debug("Removing row " + Integer.toString(i) + ": " + knownChoices.get(i));
 		knownChoices.remove(i);
 		removeRow(rowForChoiceIndex(i));
 	}
 
 	private void insertChoiceRow(int i, final Choice choice) {
-		Log.debug("Inserting row: " + choice.key);
+		Log.debug("Inserting row " + Integer.toString(i) + ": " + choice.key);
 		knownChoices.add(i, choice.key);
 		int row = rowForChoiceIndex(i);
 		insertRow(row);
@@ -143,7 +143,7 @@ public class ChoicesTable extends FlexTable implements ChoicesModel.Listener {
 	}
 
 	private void updateChoiceRow(int i, Choice choice, boolean isWritable) {
-		Log.debug("Updating row: " + choice.key);
+		Log.debug("Updating row " + Integer.toString(i) + ": " + choice.key);
 		CheckBox checkBox = (CheckBox) getWidget(rowForChoiceIndex(i), 0);
 		checkBox.setValue(choice.wasChosenByMe);
 		String label = choice.name;
