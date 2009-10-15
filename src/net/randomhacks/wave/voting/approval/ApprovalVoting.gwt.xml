@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.7.0/distro-source/core/src/gwt-module.dtd">
-<module rename-to='net.randomhacks.wave.voting.approval'>
+<module rename-to='pickseveral'>
 	<!-- Get our libraries, themes and stylesheets. -->
 	<inherits name='com.google.gwt.user.User'/>
 	<inherits name='net.randomhacks.wave.gadgets.Gadgets'/>
 	<inherits name='com.google.gwt.user.theme.standard.Standard'/>
 	<stylesheet src="style.css"/>
 
-        <!-- Logging. -->
-        <!-- <inherits name="com.allen_sauer.gwt.log.gwt-log-OFF" /> -->
-        <inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
-        <set-property name="log_DivLogger" value="DISABLED" />
-        <set-property name="log_ConsoleLogger" value="ENABLED" />
+	<!-- Logging. -->
+	<!-- <inherits name="com.allen_sauer.gwt.log.gwt-log-OFF" /> -->
+	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+	<set-property name="log_DivLogger" value="DISABLED" />
+	<set-property name="log_ConsoleLogger" value="ENABLED" />
+    
+	<!-- Custom post-linker to finish tidying up our gadget. -->    
+	<define-linker name="approvalvoting" class="net.randomhacks.wave.voting.approval.ApprovalVotingLinker" />
+	<add-linker name="approvalvoting" />
 
 	<!-- Our entry point. -->
 	<entry-point class='net.randomhacks.wave.voting.approval.client.ApprovalVoting'/>
