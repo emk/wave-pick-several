@@ -1,0 +1,10 @@
+<extension 
+    name="Pick Several"
+    thumbnailUrl="http://www.randomhacks.net/gadgets/pickseveral/screenshot.png"
+    description="Make a list of choices, and vote for one or more.">
+  <author name="Eric Kidd"/>
+  <menuHook location="toolbar" text="Add Pick Several Gadget"
+      iconUrl="http://www.randomhacks.net/gadgets/pickseveral/icon.png">
+    <insertGadget url="http://www.randomhacks.net/gadgets/pickseveral/pickseveral.gadget.xml"/>
+  </menuHook> 
+</extension> 
