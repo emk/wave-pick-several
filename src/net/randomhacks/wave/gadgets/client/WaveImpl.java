@@ -49,7 +49,9 @@ class WaveImpl extends Wave {
 			listener.onStateChange();
 	}
 
+	// TODO - This is currently broken in the Wave API.
 	public native boolean isPlayback() /*-{
-		return wave.isPlayback();
+		//return wave.isPlayback();
+		return false;
 	}-*/;
 }
